@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --color"
+    "test": "jest --color --watchAll --verbose --coverage"
   },
   "keywords": [
     "stsweng"
@@ -16,6 +16,7 @@
     "mongoose": "^6.0.12"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "jest": "^27.3.1",
     "nodemon": "^2.0.15",
     "sinon": "^12.0.1",

@@ -16,4 +16,4 @@ exports.createPost = (obj, next) => {
     post.save(function(err, post) {
         next(err, post)
     }) 
-}
+};

@@ -1,4 +1,5 @@
 const sinon = require('sinon');
+const assert = require('assert');
 const PostModel = require('../models/post.model');
 const PostController = require('../controllers/post.controller');
 
@@ -20,6 +21,7 @@ describe('Post controller', () => {
 
     
     describe('create', () => {
+        
         var createPostStub;
 
         beforeEach(() => {
@@ -73,10 +75,17 @@ describe('Post controller', () => {
             sinon.assert.calledWith(res.status, 500);
             sinon.assert.calledOnce(res.status(500).end);
         });
+
     });
 
-    describe('update', () => {
-
+    describe('update', function() {
+        it('should call the model to update the post', async () => {
+            const mockModel = { updatePost: sinon.stub() };
+            const postId = '123';
+            const newContent = 'Updated content';
+    
+            assert.ok(mockModel.updatePost.calledWith(postId, newContent));
+        });
     });
 
     describe('findPost', () => {
