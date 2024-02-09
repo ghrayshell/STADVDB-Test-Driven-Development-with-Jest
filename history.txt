@@ -1,0 +1,27 @@
+
+Developer A ( Ghray ):
+Ghrazielles-MacBook-Pro-14:node-unit-mvc ghraziellerei$ git reflog
+bae325b (HEAD -> main, origin/main, origin/HEAD) HEAD@{0}: pull --tags origin main: Fast-forward
+9de6efe HEAD@{1}: commit: Add failing test for next Module A functionality
+9a1473c HEAD@{2}: pull --tags origin main: Fast-forward
+e714e54 HEAD@{3}: commit: Add failing test for Module A
+d370684 HEAD@{4}: clone: from https://github.com/ghrayshell/STSWENG-Test-Driven-Development-with-Jest.git
+
+Developer B ( Rafael ):
+PS C:\Users\rafsa\Documents\3rd Year\Repository\STSWENG-Test-Driven-Development-with-Jest\node-unit-mvc> git reflog
+84bf23c (HEAD -> main, origin/main, origin/HEAD) HEAD@{0}: commit: Removed unnecessary files and organized project directory
+bae325b HEAD@{1}: commit: Refactored update and findPost functionality
+9de6efe HEAD@{2}: pull --ff --recurse-submodules --progress origin: Fast-forward
+9a1473c HEAD@{3}: reset: moving to HEAD
+9a1473c HEAD@{4}: commit: [[Green]] -> Update Test and Created [[Red]] test cases
+e714e54 HEAD@{5}: pull --ff --recurse-submodules --progress origin: Fast-forward
+d370684 HEAD@{6}: reset: moving to HEAD
+d370684 HEAD@{7}: clone: from https://github.com/ghrayshell/STSWENG-Test-Driven-Development-with-Jest.git
+
+History Process:
+Developer A commit: added failing test for update functionality
+Developer B commit: fixed update functionality test and created failing test for findPost
+Developer A commit: fixed findPost functionality and update test case change due to error
+Developer B commit: refactored update and findPost due a passed test case even though it must be failed
+Developer B commit: organized project directory
+Developer B commit: created history
