@@ -83,20 +83,46 @@ describe('Post controller', () => {
 
     describe('updatePost', () => {
 
+        let updatePostStub;
+    
+        beforeEach(() => {
+            // before every test case, set up the response object
+            res = {
+                json: sinon.spy(),
+                status: sinon.stub().returns({ end: sinon.spy() })
+            };
+        });
+    
+        afterEach(() => {
+            // executed after each test case
+            updatePostStub.restore();
+        });
+
+
         it("should return the updated post object", () => {
-            const mockModel = { updatePost: sinon.stub() };
-                const postId = '123';
-                const newContent = 'Updated content';
-        
-                PostController.update = (req, res) => {
-                    return mockModel.updatePost(postId, newContent, (err, updatedPost) => {
-                    });
-                };
-        
-                PostController.update({ params: { id: postId } }, {});
-        
-                assert.ok(mockModel.updatePost.calledWith(postId, newContent));
-        })  
+            // this is the newly updated post
+            const expectedUpdatedPost = {
+                _id: '507asdghajsdhjgasd',
+                title: 'just updated',
+                content: 'new content',
+                author: 'newuser',
+                date: Date.now()
+            }
+
+            req.params.id = expectedUpdatedPost._id
+            req.body = {
+                title: expectedUpdatedPost.title,
+                content: expectedUpdatedPost.content,
+                author: expectedUpdatedPost.author
+            }
+            
+            updatePostStub = sinon.stub(PostModel, 'updatePost').yields(null, expectedUpdatedPost);
+
+            PostController.update(req,res);
+
+            sinon.assert.calledWith(PostModel.updatePost, req.params.id, req.body);
+            sinon.assert.calledWith(res.json, sinon.match(expectedResult));
+        });  
     });
 
 

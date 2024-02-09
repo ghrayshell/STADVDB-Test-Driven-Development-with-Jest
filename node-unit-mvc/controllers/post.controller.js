@@ -13,19 +13,23 @@ PostController.create = (req, res) => {
 };
 
 PostController.update = (req, res) => {
-    const postId = req.params.id;
-    const updatedData = req.body;
     
-    try {
-        const updatedPost = PostModel.updatePost(postId, updatedData);
-        res.json(updatedPost);
-    } catch (err) {
-        res.status(500).end();
-    }
 };
 
 PostController.findPost = (req, res) => {
+    const postId = req.params.id;
 
+    PostModel.findPost(postId)
+        .then((foundPost) => {
+            if (foundPost) {
+                res.json(foundPost);
+            } else {
+                res.status(404).end();
+            }
+        })
+        .catch((error) => {
+            res.status(500).end();
+        });
 };
 
 PostController.getAllPosts = (req, res) => {
