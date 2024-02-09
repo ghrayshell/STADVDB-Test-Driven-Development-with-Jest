@@ -1,5 +1,5 @@
-# STSWENG-Test-Driven-Development-with-Jest
-## By DE RAMOS, Ghrazielle Rei A. & SARMIENTO, Rafael Michael R.
+# STSWENG Test-Driven Development with Jest
+### By DE RAMOS, Ghrazielle Rei A. & SARMIENTO, Rafael Michael R.
 
 Asynchronous Pair Programming Activity: Test-Driven Development (TDD) with Jest
 
