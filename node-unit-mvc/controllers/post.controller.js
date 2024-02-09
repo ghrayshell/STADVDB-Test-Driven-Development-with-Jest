@@ -12,8 +12,16 @@ PostController.create = (req, res) => {
 
 };
 
-PostController.update = async (req, res) => {
+PostController.update = (req, res) => {
+    const postId = req.params.id;
+    const updatedData = req.body;
     
+    try {
+        const updatedPost = PostModel.updatePost(postId, updatedData);
+        res.json(updatedPost);
+    } catch (err) {
+        res.status(500).end();
+    }
 };
 
 PostController.findPost = (req, res) => {

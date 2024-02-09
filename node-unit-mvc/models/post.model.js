@@ -17,3 +17,26 @@ exports.createPost = (obj, next) => {
         next(err, post)
     }) 
 };
+
+exports.updatePost = (postId, updatedData) => {
+    return new Promise((resolve, reject) => {
+        Post.findById(postId, function(err, post) {
+            if (!post) {
+                reject(new Error('Post not found')); 
+            } else {
+                Object.assign(post, updatedData);
+                post.save(function(err, updatedPost) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(updatedPost);
+                    }
+                });
+            }
+        });
+    });
+};
+
+exports.findPost = (postId) => {
+
+};

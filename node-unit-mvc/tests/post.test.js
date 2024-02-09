@@ -6,6 +6,9 @@ const PostController = require('../controllers/post.controller');
 describe('Post controller', () => {
     // Setup the responses
     let req = {
+        params: {
+            id : '123',
+        },
         body: {
             author: 'stswenguser',
             title: 'My first test post',
@@ -18,7 +21,6 @@ describe('Post controller', () => {
     let res = {};
 
     let expectedResult;
-
     
     describe('create', () => {
         
@@ -78,17 +80,71 @@ describe('Post controller', () => {
 
     });
 
-    describe('update', function() {
-        it('should call the model to update the post', async () => {
+
+    describe('updatePost', () => {
+
+        it("should return the updated post object", () => {
             const mockModel = { updatePost: sinon.stub() };
-            const postId = '123';
-            const newContent = 'Updated content';
-    
-            assert.ok(mockModel.updatePost.calledWith(postId, newContent));
-        });
+                const postId = '123';
+                const newContent = 'Updated content';
+        
+                PostController.update = (req, res) => {
+                    return mockModel.updatePost(postId, newContent, (err, updatedPost) => {
+                    });
+                };
+        
+                PostController.update({ params: { id: postId } }, {});
+        
+                assert.ok(mockModel.updatePost.calledWith(postId, newContent));
+        })  
+    });
+
+
+    let findPostStub;
+
+    beforeEach(() => {
+        findPostStub = sinon.stub(PostModel, 'findPost');
+    });
+
+    afterEach(() => {
+        findPostStub.restore();
     });
 
     describe('findPost', () => {
 
-    })
+        it('should return the post object',async () => {
+            const postId = '123';
+            const expectedPost = {
+                _id: '123',
+                title: 'title test',
+                content: 'content',
+                author: 'mypost',
+                date: Date.now()
+            }; // Mock post object
+
+            findPostStub.resolves(expectedPost);
+
+            await PostController.findPost({ params: { id: postId } }, res);
+
+            // Assert
+            sinon.assert.calledWith(PostModel.findPost, postId);
+            sinon.assert.calledWith(res.json, expectedPost);
+        });
+
+        it('should handle errors when finding the post', async () => {
+            const postId = '123';
+        
+            const req = { params: { id: postId } };
+        
+            findPostStub.rejects(error);
+        
+            await PostController.findPost(req, res);
+        
+            // Assert
+            sinon.assert.calledWith(PostModel.findPost, postId);
+            sinon.assert.calledWith(res.status, 500);
+            sinon.assert.calledOnce(res.status(500).end);
+        });
+    });
+
 });
